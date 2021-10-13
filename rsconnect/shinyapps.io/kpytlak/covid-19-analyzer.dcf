@@ -1,0 +1,13 @@
+name: covid-19-analyzer
+title: covid-19-analyzer
+username:
+account: kpytlak
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4269733
+bundleId: 5134498
+url: https://kpytlak.shinyapps.io/covid-19-analyzer/
+when: 1634130275.39443
+lastSyncTime: 1634130275.39443
+asMultiple: FALSE
+asStatic: FALSE
