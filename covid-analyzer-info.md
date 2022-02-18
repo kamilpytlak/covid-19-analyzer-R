@@ -1,14 +1,14 @@
-#### Narzędzie *COVID-19 Analyzer* zapewnia sumaryczny podgląd na sytuację epidemiologiczną związaną z chorobą COVID-19 w wybranym bądź wybranych krajach świata. Panel podzielony został na 5 narzędzi:
+#### The **COVID-19 Analyzer** application provides a summary view of the SARS-CoV-2 virus epidemic situation using a variety of statistical and data analysis methods on a dataset from JHU CSSE. The application is available at the following link. The main panel is divided into 5 tools:
 
-1.  **Zbiór danych COVID-19** - umożliwia podgląd dostępnych danych związanych z chorobą COVID-19 dla przefiltrowanego zbioru danych,
+1.  **COVID-19 dataset** - allows you to view available COVID-19 disease-related data for the filtered dataset.
 
-2.  **Kalkulator R** - narzędzie do estymacji współczynnika reprodukcji wirusa $R$, czyli wskaźnika informującego, ile średnio osób zakaża jedna osoba. Założono parametryczny interwał seryjny SARS-CoV-2 z parametrami odpowiednio $\mu_{SI} = 4.8$ i $\sigma_{SI} = 2.3$.[^1] Szacowania dokonywane są na 7-dniowym oknie tygodniowym z 95% przedziałem ufności. Istnieje jednak możliwość doboru własnych wartości parametrów. Wyniki generowane są z użyciem funkcji z biblioteki "EpiEstim"[^2].
+2.  **R-estimation** -  tool to estimate the instant viral reproduction rate $R(t)$, an indicator that tells how many people on average are infected by one person. A parametric SARS-CoV-2 serial interval was assumed with parameters $\mu_{SI} = 4.8$ i $\sigma_{SI} = 2.3$[^1]. Estimations are made on a 7-day weekly window with 95% confidence interval. However, it is possible to choose your own parameter values. The Bayesian estimation method equation implemented in the "EpiEstim" package was used[^2].
 
-3.  **Efektywność noszenia masek** - narzędzie do oszacowania efektywności noszenia masek (różnego rodzaju = o różnym współczynniku skuteczności filtracji) wyrażonej jako spadek wartości bazowego współczynnika $R_0$ do $R_{e}$. Ponadto generowana zostaje mapa cieplna (ang. *heatmap*) wizualizująca wpływ współczynnika skuteczności filtracji maski i proporcji osób noszących maski w populacji na spadek wartości współczynnika $R_0$ do $R_e$.[^3]
+3.  **Effectiveness of mask wearing** - tool to estimate the effectiveness of wearing masks (of different types = with different filtration efficiencies) expressed as a decrease in the value of the baseline coefficient $R_0$ to $R_{e}$. In addition, a heatmap is generated visualizing the effect of mask filtration efficiency and the proportion of mas wearers in the population on the decrease in $R_0$ to $R_e$[^3].
 
-4.  **Testowanie hipotez** - narzędzie to testowania hipotez dotyczących braku istotnych różnic pomiędzy średnimi/medianami wybranych parametrów danych krajów (np. liczby nowych zakażeń, zgonów, wykonanych testów, itp.). W zależności od liczby wybranych krajów i charakterystyki rozkładów wartości wybranych parametrów automatycznie dopasowywany jest test (t-Studenta/U-Manna-Whitneya/ANOVA/Kruskala-Wallisa).
+4.  **Hypotheses testing** - tool for testing hypotheses on the non-significant differences between averages/medians of selected parameters of countries (e.g. number of new infections, deaths, tests performed, etc.). Depending on the number of selected countries and characteristics of the distributions of values of selected parameters, a test meeting the given assumptions (Student's t/U-Mann-Whitney/ANOVA/Kruskal-Wallis) is automatically selected.
 
-5.  **Wykresy COVID-19** - wizualna reprezentacja danych ilościowych związanych z szeregami czasowymi (liczba nowych zakażeń, zgonów, ilości skumulowane, itp.).
+5.  **COVID-19 plots** - visual representation of quantitative data related to time series (number of new infections, deaths, cumulative amounts, etc.).
 
 [^1]: Nishiura, H., Linton, N. M. and Akhmetzhanov, A. R. (2020) 'Serial interval of novel coronavirus (COVID-19) infections', *International Journal of Infectious Diseases*, 93, pp. 284--286. doi: [10.1016/j.ijid.2020.02.060](https://doi.org/10.1016/j.ijid.2020.02.060).
 

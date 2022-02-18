@@ -22,7 +22,7 @@ ui <- dashboardPage(
             menuItem("Effectiveness of mask wearing",
                      tabName = "mask_tab",
                      icon = icon("head-side-mask")),
-            menuItem("Hypothesis testing",
+            menuItem("Hypotheses testing",
                      tabName = "hypotheses_tab",
                      icon = icon("question")),
             menuItem("COVID-19 plots",
