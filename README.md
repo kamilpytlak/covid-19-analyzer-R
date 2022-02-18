@@ -1,16 +1,3 @@
-
-# PL
-## <center>Aplikacja "COVID-19 Analyzer"</center>
-Aplikacja "COVID-19 Analyzer" zapewnia sumaryczny podgląd na sytuację epidemiczną związaną z wirusem SARS-CoV-2 z użyciem różnych metod statystycznych i z dziedziny szeroko rozumianej analizy danych na zbiorze danych z [JHU CSSE](https://github.com/CSSEGISandData/COVID-19). Aplikacja dostępna jest pod następującym linkiem: https://kpytlak.shinyapps.io/covid-19-analyzer/. Panel główny podzielony został na 5 narzędzi:
-
- 1. **Zbiór danych COVID-19**  - umożliwia podgląd dostępnych danych związanych z chorobą COVID-19 dla przefiltrowanego zbioru danych.
-
- 2. **Estymacja R(t)** - narzędzie do estymacji współczynnika reprodukcji wirusa ![equation](https://latex.codecogs.com/gif.latex?R%28t%29), czyli wskaźnika informującego, ile średnio osób zakaża jedna osoba. Założono parametryczny interwał seryjny SARS-CoV-2 z parametrami odpowiednio ![equation](https://latex.codecogs.com/gif.latex?%5Cmu_%7BSI%7D%20%3D%204.8) i ![equation](https://latex.codecogs.com/gif.latex?%5Csigma_%7BSI%7D%20%3D%202.3). [^1] Szacowania dokonywane są na 7-dniowym oknie tygodniowym z 95% przedziałem ufności. Istnieje jednak możliwość doboru własnych wartości parametrów. Skorzystano z Bayesowskiej metody estymacji ![equation](https://latex.codecogs.com/gif.latex?R%28t%29) zaimplementowanej w pakiecie "EpiEstim" [^2].
- 3. **Efektywność noszenia masek** - narzędzie do oszacowania efektywności noszenia masek (różnego rodzaju = o różnym współczynniku skuteczności filtracji) wyrażonej jako spadek wartości bazowego współczynnika ![equation](https://latex.codecogs.com/gif.latex?R_0) do ![equation](https://latex.codecogs.com/gif.latex?R_e). Ponadto generowana zostaje mapa cieplna (ang. _heatmap_) wizualizująca wpływ współczynnika skuteczności filtracji maski i proporcji osób noszących maski w populacji na spadek wartości współczynnika ![equation](https://latex.codecogs.com/gif.latex?R_0) do ![equation](https://latex.codecogs.com/gif.latex?R_e) [^3].
- 4. **Testowanie hipotez**  - narzędzie to testowania hipotez dotyczących braku istotnych różnic pomiędzy średnimi/medianami wybranych parametrów danych krajów (np. liczby nowych zakażeń, zgonów, wykonanych testów, itp.). W zależności od liczby wybranych krajów i charakterystyki rozkładów wartości wybranych parametrów automatycznie dobierany jest test spełniający dane założenia (t-Studenta/U-Manna-Whitneya/ANOVA/Kruskala-Wallisa).
- 5. **Wykresy COVID-19**  - wizualna reprezentacja danych ilościowych związanych z szeregami czasowymi (liczba nowych zakażeń, zgonów, ilości skumulowane, itp.).
-
-# EN
 ## <center>"COVID-19 Analyzer" application</center>
 The "COVID-19 Analyzer" application provides a summary view of the SARS-CoV-2 virus epidemic situation using a variety of statistical and data analysis methods on a dataset from [JHU CSSE](https://github.com/CSSEGISandData/COVID-19). The application is available at the following link: https://kpytlak.shinyapps.io/covid-19-analyzer/. The main panel is divided into 5 tools:
 
