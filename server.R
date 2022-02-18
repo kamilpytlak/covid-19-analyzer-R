@@ -48,7 +48,7 @@ server <- function(input, output){
         col
     })
     
-    # Zakładka: Zbiór danych COVID-19
+    # COVID-19 dataset
     output$covid_dataset <- renderReactable({
         reactable(
             covid.data(),
@@ -58,7 +58,7 @@ server <- function(input, output){
             )
         })
     
-    # Zadkładka: Estymacja R
+    # R-estimation
     output$r_plot <- renderPlotly({
         plot(R.est(), "R")
     })
@@ -70,7 +70,7 @@ server <- function(input, output){
         )
     })
     
-    # Zakładka: Efektywność noszenia masek
+    # Effectiveness of mask wearing
     mask.eff.df <- reactive({
         m <- seq(1, 100, 1)
         p <- m
@@ -138,14 +138,14 @@ server <- function(input, output){
         ggplotly(p)
     })
     
-    # Zakładka: Testowanie hipotez
+    # Hypotheses testing
     output$stat_test <- renderPrint({
         n.grps <- length(unique(indep.var()))
         feedbackWarning("hypothesis", n.grps > 2, "When comparing more than 2
                         groups (ANOVA/Kruskal-Wallis), the two-sided
                         hypothesis is verified.")
         
-        if(n.grps >= 2){
+        if (n.grps >= 2) {
             normality.table <- aggregate(formula = dep.var() ~ indep.var(),
                                          data = covid.data(),
                                          FUN = function(x){
@@ -155,12 +155,12 @@ server <- function(input, output){
             var.check <- ifelse(bartlett.test(dep.var() ~ indep.var())$p.value > 0.05,
                                 TRUE, FALSE)
         }
-        if(n.grps == 2){
-            if(min(normality.table$dep.var) < 0.05){
+        if (n.grps == 2) {
+            if (min(normality.table$dep.var) < 0.05) {
                 wilcox.test(dep.var() ~ indep.var(), alternative = input$hypothesis,
                             na.action = "na.pass")
             }
-            else if(var.check == FALSE){
+            else if (var.check == FALSE) {
                 t.test(dep.var() ~ indep.var(), alternative = input$hypothesis,
                        var.equal = FALSE, na.action = "na.pass")
             }
@@ -169,22 +169,22 @@ server <- function(input, output){
                        var.equal = TRUE, na.action = "na.pass")
             }
         }
-            else if(n.grps > 2){
-            if(min(normality.table$dep.var) < 0.05 & var.check == FALSE){
+            else if (n.grps > 2) {
+            if (min(normality.table$dep.var) < 0.05 & var.check == FALSE) {
                 covid.kruskal <- kruskal.test(dep.var() ~ indep.var())
                 
-                if(covid.kruskal$p.value < 0.05){
+                if (covid.kruskal$p.value < 0.05) {
                     covid.dunntest <- dunnTest(dep.var() ~ indep.var())
                     list(Kruskal.Wallis.test = covid.kruskal,
                          Dunnett.Test = covid.dunntest)
                 }
-                else{
+                else {
                     covid.kruskal
                 }
             }
-            else{
+            else {
                 covid.anova <- aov(dep.var() ~ indep.var())
-                if(summary(covid.anova)[[1]][[1, "Pr(>F)"]] < 0.05){
+                if (summary(covid.anova)[[1]][[1, "Pr(>F)"]] < 0.05) {
                     covid.tukey <- TukeyHSD(covid.anova)
                     list(ANOVA = summary(covid.anova),
                          Tukey.Test = covid.tukey)
@@ -193,17 +193,17 @@ server <- function(input, output){
         }
     })
     
-    # Testowanie hipotez - wykres czynników
+    # Hypotheses testing - boxplot
     output$stat_test_boxplot <- renderPlotly({
         covid.data() %>%
             plot_ly(y = ~dep.var(), color = ~indep.var(), type = "box")
     })
     
-    # Zakładka: Wykresy trendu
+    # COVID-19 plots
     
-    # Nowe zakażenia
+    # New cases
     output$new_cases_plot <- renderPlotly({
-        if(input$log_scale == FALSE){
+        if (input$log_scale == FALSE) {
             ggplot.nolog(data = covid.data(), y = covid.data()$I,
                          y.title = "Number of new infections")
             }
@@ -213,33 +213,33 @@ server <- function(input, output){
             }
         })
         
-    # Nowe zgony
+    # New deaths
     output$new_deaths_plot <- renderPlotly({
-        if(input$log_scale == FALSE){
+        if (input$log_scale == FALSE) {
             ggplot.nolog(data = covid.data(), y = covid.data()$new_deaths,
                          y.title = "Number of new deaths")
         }
-        else{
+        else {
             ggplot.log(data = covid.data(), y = covid.data()$new_deaths,
                        y.title = "Number of new deaths")
         }
         })
     
-    # Zakażenia (skumulowane)
+    # Cases (cumulated)
     output$cases_cum_plot <- renderPlotly({
-        if(input$log_scale == FALSE){
+        if (input$log_scale == FALSE) {
             ggplot.nolog(data = covid.data(), y = covid.data()$total_cases,
                          y.title = "Cumulated number of new infections")
         }
-        else{
+        else {
             ggplot.log(data = covid.data(), y = covid.data()$total_cases,
                        y.title = "Cumulated number of new infections")
         }
         })
     
-    # Zgony (skumulowane)
+    # Deaths (cumulated)
     output$deaths_cum_plot <- renderPlotly({
-        if(input$log_scale == FALSE){
+        if (input$log_scale == FALSE) {
             ggplot.nolog(data = covid.data(), y = covid.data()$total_deaths,
                          y.title = "Cumulated number of new deaths")
         }
@@ -249,56 +249,56 @@ server <- function(input, output){
         }
     })
     
-    # Nowe zakażenia (średnia 7-dniowa)
+    # New cases (7-day moving average)
     output$new_cases_7da_plot <- renderPlotly({
-        if(input$log_scale == FALSE){
+        if (input$log_scale == FALSE) {
             ggplot.nolog(data = covid.data(),
                          y = covid.data()$new_cases_smoothed,
                          y.title = "Number of new infections")
         }
-        else{
+        else {
             ggplot.log(data = covid.data(),
                        y = covid.data()$new_cases_smoothed,
                        y.title = "Number of new infections")
         }
     })
     
-    # Nowe zgony (średnia 7-dniowa)
+    # New deaths (7-day moving average)
     output$new_deaths_7da_plot <- renderPlotly({
-        if(input$log_scale == FALSE){
+        if (input$log_scale == FALSE) {
             ggplot.nolog(data = covid.data(),
                          y = covid.data()$new_deaths_smoothed,
                          y.title = "Number of new deaths")
         }
-        else{
+        else {
             ggplot.log(data = covid.data(),
                        y = covid.data()$new_deaths_smoothed,
                        y.title = "Number of new deaths")
         }
     })
     
-    # Nowe zakażenia na 1 mln. osób (średnia 7-dniowa)
+    # New cases per 1 mln (7-day moving average)
     output$new_cases_smoothed_7da_plot <- renderPlotly({
-        if(input$log_scale == FALSE){
+        if (input$log_scale == FALSE) {
             ggplot.nolog(data = covid.data(),
                          y = covid.data()$new_cases_smoothed_per_million,
                          y.title = "Number of new infections")
         }
-        else{
+        else {
             ggplot.log(data = covid.data(),
                        y = covid.data()$new_cases_smoothed_per_million,
                        y.title = "Number of new infections")
         }
     })
     
-    # Nowe zgony na 1 mln. osób (średnia 7-dniowa)
+    # New deaths per 1 mln (7-day moving average)
     output$new_deaths_smoothed_7da_plot <- renderPlotly({
-        if(input$log_scale == FALSE){
+        if (input$log_scale == FALSE) {
             ggplot.nolog(data = covid.data(),
                          y = covid.data()$new_deaths_smoothed_per_million,
                          y.title = "Number of new deaths")
         }
-        else{
+        else {
             ggplot.log(data = covid.data(),
                        y = covid.data()$new_deaths_smoothed_per_million,
                        y.title = "Number of new deaths")

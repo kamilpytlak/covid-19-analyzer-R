@@ -18,7 +18,7 @@ library(EpiEstim)
 covid <- fread("https://covid.ourworldindata.org/data/owid-covid-data.csv",
                encoding = "UTF-8")
 
-if (exists("covid") == FALSE){
+if (exists("covid") == FALSE) {
   covid <- fread("www/covid-all.csv",
                  encoding = "UTF-8")
 }
@@ -43,13 +43,6 @@ covid <- covid %>%
          date = as.Date(date)) %>%
   filter(!is.na(country)) %>%
   select(-iso_code)
-
-# custom.dict <- data.frame(polish = codelist$cldr.name.pl,
-#                           english = codelist$cldr.name.en,
-#                           stringsAsFactors = FALSE)
-# 
-# covid$country <- countrycode(covid$country, "english", "polish",
-#                              custom_dict = custom.dict)
 
 colnames(covid)[which(names(covid) == "date")] <- "dates"
 colnames(covid)[which(names(covid) == "new_cases")] <- "I"

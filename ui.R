@@ -13,25 +13,25 @@ ui <- dashboardPage(
             menuItem("Information",
                      tabName = "info_tab",
                      icon = icon("info-circle")),
-            menuItem("COVID-19 dataset",
+            menuItem("COVID-19 Dataset",
                      tabName = "covid_dataset_tab",
                      icon = icon("table")),
             menuItem("R-estimation",
                      tabName = "r_calculator_tab",
                      icon = icon("calculator")),
-            menuItem("Effectiveness of mask wearing",
+            menuItem("Effectiveness of Mask Wearing",
                      tabName = "mask_tab",
                      icon = icon("head-side-mask")),
-            menuItem("Hypotheses testing",
+            menuItem("Hypotheses Testing",
                      tabName = "hypotheses_tab",
                      icon = icon("question")),
-            menuItem("COVID-19 plots",
+            menuItem("COVID-19 Plots",
                      tabName = "plots_tab",
                      icon = icon("chart-line")),
             
-            # Wybór: kraj
+            # Choice: country
             selectizeInput("country",
-                        label = "COuntry",
+                        label = "Country",
                         choices = countries,
                         selected = "Poland",
                         multiple = TRUE,
@@ -39,7 +39,7 @@ ui <- dashboardPage(
                                        'create' = TRUE,
                                        'persist' = FALSE)),
             
-            # Wybór: okres
+            # Choice: period
             dateRangeInput("dates",
                            label = "Period",
                            min = min.date,
@@ -48,26 +48,26 @@ ui <- dashboardPage(
                            end = max.date,
                            language = "en"),
             
-            # Wybór: skala logarytmiczna wykresów
+            # Choice: logarithmic scale of plots
             checkboxInput("log_scale",
                           label = "Logarithmic scale",
                           value = FALSE)
         )
         ),
     
-    # Zawartość główna (po prawej)
+    # Main window (right)
     dashboardBody(
         useShinyFeedback(),
         tabItems(
-            # Informacje
+            # Information
             tabItem(tabName = "info_tab",
                     withMathJax(includeMarkdown("covid-analyzer-info.md"))),
             
-            # Zbiór danych COVID-19
+            # COVID-19 dataset
             tabItem(tabName = "covid_dataset_tab",
                     reactableOutput("covid_dataset")),
             
-            # Kalkulator R
+            # R-estimation
             tabItem(tabName = "r_calculator_tab",
                     numericInput("mean_si", "Mean SI",
                                  value = 4.8, min = 0),
@@ -82,7 +82,7 @@ ui <- dashboardPage(
                               plotlyOutput("r_plot")),
                     reactableOutput("r_summary")),
             
-            # Efetywność noszenia masek
+            # Effectivess of mask wearing
             tabItem(tabName = "mask_tab",
                     numericInput("R0", "R0",
                                 value = 2.7, min = 0.1, max = 10.0),
@@ -110,7 +110,7 @@ ui <- dashboardPage(
                     ),
             
             
-            # Testowanie hipotez
+            # Hypotheses testing
             tabItem(tabName = "hypotheses_tab",
                     create.box(title = "Hypothesis testing - information",
                                width = 50, collapsed = TRUE,
@@ -132,7 +132,7 @@ ui <- dashboardPage(
                                plotlyOutput("stat_test_boxplot"))),
             
             
-            # Wykresy
+            # COVID-19 plots
             tabItem(tabName = "plots_tab",
                     box(title = "Country/Countries summary",
                         width = 12,
@@ -145,7 +145,7 @@ ui <- dashboardPage(
                                    width = 6,
                                    collapsed = FALSE,
                                    plotlyOutput("new_cases_plot")),
-                        create.box(title = "Nowe zgony",
+                        create.box(title = "Nowe deaths",
                                    width = 6,
                                    collapsed = FALSE,
                                    plotlyOutput("new_deaths_plot"))
