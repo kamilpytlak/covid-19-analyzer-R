@@ -1,4 +1,7 @@
 # <center>"COVID-19 Analyzer"</center>
+
+![](https://i.imgur.com/S7EHnnB.png)
+
 The "COVID-19 Analyzer" application provides a summary view of the SARS-CoV-2 virus epidemic situation using a variety of statistical and data analysis methods on a dataset from [JHU CSSE](https://github.com/CSSEGISandData/COVID-19). The application is available at the following link: https://kpytlak.shinyapps.io/covid-19-analyzer/. The main panel is divided into 5 tools:
 
  1. **COVID-19 dataset** - allows you to view available COVID-19 disease-related data for the filtered dataset.
